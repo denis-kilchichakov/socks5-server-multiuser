@@ -2,30 +2,30 @@
   "users": [
     {
       "username": "admin",
-      "password_hash": "$2a$10$VpcwsXe1I5xljmddA/hoqe7ue2HLYKWgTk9vdY85bXIP/5wS71c9i",
+      "password_hash": "$2a$10$nkmxBjuhdBtuulAQ19aoeujelNgFE6uJXplPNWBM3g9SXyfzWpE1m",
       "enabled": true,
-      "created_at": "2025-07-16T20:00:54.735741+03:00"
+      "created_at": "2025-07-16T21:13:52.50266+03:00"
     },
     {
       "username": "user1",
-      "password_hash": "$2a$10$2lMAunOgwROBamyy3kdv6eLC50oTKHQjVCFZPN50FGaWrjLRGGS..",
+      "password_hash": "$2a$10$DR5uiPAhfhHiNzEm5WhwiOD7JnrBwa4yzsv7Q41dBB436IKoQjleO",
       "allowed_ips": [
         "192.168.1.0/24",
         "10.0.0.1"
       ],
       "allowed_destinations": ".*\\.(example\\.com|safe-site\\.org)$",
       "enabled": true,
-      "created_at": "2025-07-16T20:00:54.735741+03:00"
+      "created_at": "2025-07-16T21:13:52.50266+03:00"
     },
     {
       "username": "restricted",
-      "password_hash": "$2a$10$aTCnBYHFdDyroEvcrdItnuQ9L1cG3nrE0SWvHcCBpx/MkqguD0d3i",
+      "password_hash": "$2a$10$X887ny37Q2ujx3OYuS6s1uAlqRkadCsGPblXxqZ.sIS1EPxppZxbG",
       "allowed_ips": [
         "192.168.1.100"
       ],
       "allowed_destinations": ".*\\.example\\.com$",
       "enabled": true,
-      "created_at": "2025-07-16T20:00:54.735741+03:00"
+      "created_at": "2025-07-16T21:13:52.50266+03:00"
     }
   ],
   "global_settings": {

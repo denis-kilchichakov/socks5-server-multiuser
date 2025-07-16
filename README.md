@@ -30,7 +30,7 @@ Enhanced multi-user support with per-user access controls:
 
 ```bash
 # Generate test configuration with sample users
-go run generate_config.go
+go run cmd/generate-config/generate_config.go
 
 # Run in multi-user mode
 USE_MULTI_USER=true CONFIG_FILE=users.json go run .
@@ -111,7 +111,7 @@ go build -o socks5-multiuser .
 ## Generate test configuration (for multi-user mode)
 
 ```bash
-go run generate_config.go
+go run cmd/generate-config/generate_config.go
 ```
 
 This creates a `users.json` file with three test users:
