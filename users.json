@@ -1,0 +1,36 @@
+{
+  "users": [
+    {
+      "username": "admin",
+      "password_hash": "$2a$10$VpcwsXe1I5xljmddA/hoqe7ue2HLYKWgTk9vdY85bXIP/5wS71c9i",
+      "enabled": true,
+      "created_at": "2025-07-16T20:00:54.735741+03:00"
+    },
+    {
+      "username": "user1",
+      "password_hash": "$2a$10$2lMAunOgwROBamyy3kdv6eLC50oTKHQjVCFZPN50FGaWrjLRGGS..",
+      "allowed_ips": [
+        "192.168.1.0/24",
+        "10.0.0.1"
+      ],
+      "allowed_destinations": ".*\\.(example\\.com|safe-site\\.org)$",
+      "enabled": true,
+      "created_at": "2025-07-16T20:00:54.735741+03:00"
+    },
+    {
+      "username": "restricted",
+      "password_hash": "$2a$10$aTCnBYHFdDyroEvcrdItnuQ9L1cG3nrE0SWvHcCBpx/MkqguD0d3i",
+      "allowed_ips": [
+        "192.168.1.100"
+      ],
+      "allowed_destinations": ".*\\.example\\.com$",
+      "enabled": true,
+      "created_at": "2025-07-16T20:00:54.735741+03:00"
+    }
+  ],
+  "global_settings": {
+    "port": "1080",
+    "config_file": "users.json",
+    "require_authentication": true
+  }
+}
