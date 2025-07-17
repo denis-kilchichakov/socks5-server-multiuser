@@ -103,6 +103,30 @@ The JSON configuration file structure:
 
 ## Testing
 
+### Run the test suite
+```bash
+# Run all tests
+go test -v
+
+# Run specific test categories
+go test -v -run TestCredentials
+go test -v -run TestMultiUserRuleSet
+go test -v -run TestUserManagement
+go test -v -run TestMultiUserIntegration
+
+# Run with timeout for performance tests
+go test -v -timeout 30s
+```
+
+The comprehensive test suite includes:
+- **Credential Store Tests**: Authentication, user management, password hashing
+- **Multi-User Rule Set Tests**: Per-user access control and destination filtering
+- **User Management CLI Tests**: Command-line interface operations
+- **Integration Tests**: End-to-end workflows, performance, and edge cases
+- **Test Helpers**: Utility functions for test setup and validation
+
+See `TEST_SUMMARY.md` for detailed test coverage documentation.
+
 ### Test the running service
 
 #### Legacy mode (single user)

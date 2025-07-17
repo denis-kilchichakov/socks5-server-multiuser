@@ -1,0 +1,42 @@
+{
+  "users": [
+    {
+      "username": "admin",
+      "password_hash": "$2a$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi",
+      "allowed_ips": ["127.0.0.1", "192.168.1.0/24"],
+      "allowed_destinations": ".*",
+      "enabled": true,
+      "created_at": "2024-01-01T00:00:00Z"
+    },
+    {
+      "username": "user1",
+      "password_hash": "$2a$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi",
+      "allowed_ips": ["127.0.0.1", "10.0.0.0/8"],
+      "allowed_destinations": ".*\\.example\\.com$",
+      "enabled": true,
+      "created_at": "2024-01-01T00:00:00Z"
+    },
+    {
+      "username": "restricted",
+      "password_hash": "$2a$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi",
+      "allowed_ips": ["127.0.0.1"],
+      "allowed_destinations": "restricted\\.example\\.com$",
+      "enabled": true,
+      "created_at": "2024-01-01T00:00:00Z"
+    },
+    {
+      "username": "disabled",
+      "password_hash": "$2a$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi",
+      "allowed_ips": ["127.0.0.1"],
+      "allowed_destinations": ".*",
+      "enabled": false,
+      "created_at": "2024-01-01T00:00:00Z"
+    }
+  ],
+  "global_settings": {
+    "port": "1080",
+    "config_file": "test_config.json",
+    "require_authentication": true,
+    "default_allowed_destinations": ".*\\.test\\.com$"
+  }
+}

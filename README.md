@@ -139,7 +139,36 @@ Don't forget to set parameters in the `.env` file.
 
 # Testing
 
-## Legacy Mode
+## Automated Test Suite
+
+Run the comprehensive test suite to validate multi-user functionality:
+
+```bash
+# Run all tests
+go test -v
+
+# Run specific test categories
+go test -v -run TestCredentials
+go test -v -run TestMultiUserRuleSet
+go test -v -run TestUserManagement
+go test -v -run TestMultiUserIntegration
+
+# Run with timeout for performance tests
+go test -v -timeout 30s
+```
+
+The test suite includes:
+- **Credential Store Tests**: Authentication, user management, password hashing
+- **Multi-User Rule Set Tests**: Per-user access control and destination filtering
+- **User Management CLI Tests**: Command-line interface operations
+- **Integration Tests**: End-to-end workflows, performance, and edge cases
+- **Test Helpers**: Utility functions for test setup and validation
+
+See `TEST_SUMMARY.md` for detailed test coverage documentation.
+
+## Manual Testing
+
+### Legacy Mode
 
 ```bash
 # Without authentication
@@ -149,7 +178,7 @@ curl --socks5 localhost:1080 https://ifcfg.co
 curl --socks5 localhost:1080 -U <PROXY_USER>:<PROXY_PASSWORD> https://ifcfg.co
 ```
 
-## Multi-User Mode
+### Multi-User Mode
 
 ```bash
 # Test with admin user (full access)
@@ -165,7 +194,7 @@ curl --socks5 localhost:1080 -U restricted:restricted123 https://example.com
 curl --socks5 localhost:1080 -U restricted:restricted123 https://google.com
 ```
 
-## Docker Testing
+### Docker Testing
 
 ```bash
 # Legacy mode
