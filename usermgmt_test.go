@@ -298,7 +298,7 @@ func TestCreateDefaultConfig(t *testing.T) {
 	}
 
 	users := cli.credStore.ListUsers()
-	expectedUsers := []string{"admin", "user1", "restricted"}
+	expectedUsers := []string{"admin", "user1", "user2"}
 
 	if len(users) != len(expectedUsers) {
 		t.Errorf("Expected %d users, got %d", len(expectedUsers), len(users))
@@ -325,8 +325,8 @@ func TestCreateDefaultConfig(t *testing.T) {
 		t.Error("Expected user1 to be valid with password user123")
 	}
 
-	if !cli.credStore.Valid("restricted", "restricted123") {
-		t.Error("Expected restricted user to be valid with password restricted123")
+	if !cli.credStore.Valid("user2", "restricted123") {
+		t.Error("Expected user2 to be valid with password restricted123")
 	}
 
 	adminUser, exists := cli.credStore.GetUser("admin")
@@ -351,25 +351,25 @@ func TestCreateDefaultConfig(t *testing.T) {
 		t.Fatal("Expected user1 to exist")
 	}
 
-	if len(user1.AllowedIPs) != 2 {
-		t.Errorf("Expected user1 to have 2 IP restrictions, got %d", len(user1.AllowedIPs))
+	if len(user1.AllowedIPs) != 0 {
+		t.Errorf("Expected user1 to have no IP restrictions, got %d", len(user1.AllowedIPs))
 	}
 
-	if user1.AllowedDestinations == "" {
-		t.Error("Expected user1 to have destination restrictions")
+	if user1.AllowedDestinations != "" {
+		t.Error("Expected user1 to have no destination restrictions")
 	}
 
-	restrictedUser, exists := cli.credStore.GetUser("restricted")
+	user2, exists := cli.credStore.GetUser("user2")
 	if !exists {
-		t.Fatal("Expected restricted user to exist")
+		t.Fatal("Expected user2 to exist")
 	}
 
-	if len(restrictedUser.AllowedIPs) != 1 {
-		t.Errorf("Expected restricted user to have 1 IP restriction, got %d", len(restrictedUser.AllowedIPs))
+	if len(user2.AllowedIPs) != 0 {
+		t.Errorf("Expected user2 to have no IP restrictions, got %d", len(user2.AllowedIPs))
 	}
 
-	if restrictedUser.AllowedDestinations == "" {
-		t.Error("Expected restricted user to have destination restrictions")
+	if user2.AllowedDestinations != "" {
+		t.Error("Expected user2 to have no destination restrictions")
 	}
 }
 
@@ -403,9 +403,9 @@ func TestUserManagementCLI_Integration(t *testing.T) {
 		t.Errorf("Expected 3 initial users, got %d", len(initialUsers))
 	}
 
-	err = cli.RemoveUser("restricted")
+	err = cli.RemoveUser("user2")
 	if err != nil {
-		t.Fatalf("Failed to remove restricted user: %v", err)
+		t.Fatalf("Failed to remove user2: %v", err)
 	}
 
 	afterRemovalUsers := cli.credStore.ListUsers()
@@ -413,9 +413,9 @@ func TestUserManagementCLI_Integration(t *testing.T) {
 		t.Errorf("Expected 2 users after removal, got %d", len(afterRemovalUsers))
 	}
 
-	_, exists := cli.credStore.GetUser("restricted")
+	_, exists := cli.credStore.GetUser("user2")
 	if exists {
-		t.Error("Expected restricted user to not exist after removal")
+		t.Error("Expected user2 to not exist after removal")
 	}
 
 	newCli, err := NewUserManagementCLI(tmpFile.Name(), logger)
@@ -428,8 +428,8 @@ func TestUserManagementCLI_Integration(t *testing.T) {
 		t.Errorf("Expected 2 users after config reload, got %d", len(persistedUsers))
 	}
 
-	_, exists = newCli.credStore.GetUser("restricted")
+	_, exists = newCli.credStore.GetUser("user2")
 	if exists {
-		t.Error("Expected restricted user to not exist after config reload")
+		t.Error("Expected user2 to not exist after config reload")
 	}
 }

@@ -49,16 +49,12 @@ Create a `users.json` file with the following structure:
     {
       "username": "admin",
       "password_hash": "$2a$10$...",
-      "allowed_ips": [],
-      "allowed_destinations": "",
       "enabled": true,
       "created_at": "2024-01-01T00:00:00Z"
     },
     {
       "username": "user1",
       "password_hash": "$2a$10$...",
-      "allowed_ips": ["192.168.1.0/24", "10.0.0.1"],
-      "allowed_destinations": ".*\\.(example\\.com|safe-site\\.org)$",
       "enabled": true,
       "created_at": "2024-01-01T00:00:00Z"
     }
@@ -73,10 +69,10 @@ Create a `users.json` file with the following structure:
 
 ### Multi-User Features
 
-- **Per-User IP Restrictions**: Limit users to specific IP addresses or CIDR ranges
-- **Per-User Destination Filtering**: Custom regex patterns for allowed destinations
-- **Bcrypt Password Hashing**: Secure password storage
+- **Multi-User Authentication**: Support for multiple users with individual credentials
+- **Bcrypt Password Hashing**: Secure password storage with configurable cost
 - **User Enable/Disable**: Temporarily deactivate users without removal
+- **Last Login Tracking**: Track when users last authenticated
 - **Audit Trail**: Track user creation and last login times
 
 # Environment Variables
@@ -115,9 +111,9 @@ go run cmd/generate-config/generate_config.go
 ```
 
 This creates a `users.json` file with three test users:
-- **admin**: password `admin123`, full access
-- **user1**: password `user123`, limited IPs and destinations  
-- **restricted**: password `restricted123`, strict restrictions
+- **admin**: password `admin123`
+- **user1**: password `user123`
+- **user2**: password `restricted123`
 
 ## Run locally
 
@@ -181,17 +177,17 @@ curl --socks5 localhost:1080 -U <PROXY_USER>:<PROXY_PASSWORD> https://ifcfg.co
 ### Multi-User Mode
 
 ```bash
-# Test with admin user (full access)
+# Test with admin user
 curl --socks5 localhost:1080 -U admin:admin123 https://ifcfg.co
 
-# Test with user1 (limited access)
+# Test with user1
 curl --socks5 localhost:1080 -U user1:user123 https://example.com
 
-# Test with restricted user (strict limitations)
-curl --socks5 localhost:1080 -U restricted:restricted123 https://example.com
+# Test with user2
+curl --socks5 localhost:1080 -U user2:restricted123 https://example.com
 
-# Test access denied (wrong destination for restricted user)
-curl --socks5 localhost:1080 -U restricted:restricted123 https://google.com
+# Test with invalid credentials (should fail)
+curl --socks5 localhost:1080 -U user1:wrongpassword https://google.com
 ```
 
 ### Docker Testing

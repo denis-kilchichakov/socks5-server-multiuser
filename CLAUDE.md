@@ -30,8 +30,8 @@ The server supports two modes:
 **Multi-User Mode**: Uses JSON configuration file for multiple users
 - `USE_MULTI_USER=true` to enable
 - `CONFIG_FILE=users.json` to specify config file
-- Per-user IP restrictions and destination filtering
-- Bcrypt password hashing for security
+- Multi-user authentication with bcrypt password hashing
+- User enable/disable functionality
 
 ## Build and Development Commands
 
@@ -87,8 +87,6 @@ The JSON configuration file structure:
     {
       "username": "admin",
       "password_hash": "$2a$10$...",
-      "allowed_ips": ["192.168.1.0/24"],
-      "allowed_destinations": ".*\\.example\\.com$",
       "enabled": true,
       "created_at": "2024-01-01T00:00:00Z"
     }
@@ -156,9 +154,9 @@ go run generate_config.go
 ```
 
 This creates a `users.json` file with three test users:
-- **admin**: Full access, password: `admin123`
-- **user1**: Limited IPs and destinations, password: `user123`
-- **restricted**: Strict limitations, password: `restricted123`
+- **admin**: password: `admin123`
+- **user1**: password: `user123`
+- **user2**: password: `restricted123`
 
 ## Dependencies
 
@@ -171,14 +169,14 @@ This creates a `users.json` file with three test users:
 
 ## Multi-User Features
 
-### Per-User Access Control
-- **IP Restrictions**: Users can be limited to specific IP addresses or CIDR ranges
-- **Destination Filtering**: Users can have custom regex patterns for allowed destinations
-- **Individual Enable/Disable**: Users can be temporarily disabled without removing them
+### Authentication
+- **Multi-User Support**: Multiple users with individual credentials
 - **Password Security**: Bcrypt hashing with configurable cost for password storage
+- **Individual Enable/Disable**: Users can be temporarily disabled without removing them
+- **Last Login Tracking**: Track when users last authenticated
 
 ### User Management
-- **File-based Configuration**: JSON configuration file with hot-reload capability
+- **File-based Configuration**: JSON configuration file for user management
 - **CLI Utilities**: Helper functions for user management (add, remove, change password)
 - **Audit Trail**: Creation timestamps and last login tracking
 - **Backward Compatibility**: Legacy single-user mode still supported

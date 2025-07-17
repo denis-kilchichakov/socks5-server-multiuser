@@ -44,28 +44,17 @@ func main() {
 			log.Fatal("Failed to initialize credential store:", err)
 		}
 		
-		// Set up authentication
+		// Set up authentication only - no custom rule sets
 		authenticator := socks5.UserPassAuthenticator{Credentials: credStore}
 		socks5conf.AuthMethods = []socks5.Authenticator{authenticator}
-		
-		// Set up multi-user rules
-		multiUserRules := NewMultiUserRuleSet(credStore, logger)
-		combinedRules := NewCombinedRuleSet(logger)
-		combinedRules.AddRule(multiUserRules)
-		
-		// Add legacy destination filtering if specified
-		if cfg.AllowedDestFqdn != "" {
-			legacyDestRules := NewLegacyDestinationRuleSet(cfg.AllowedDestFqdn, logger)
-			combinedRules.AddRule(legacyDestRules)
-		}
-		
-		socks5conf.Rules = combinedRules
 		
 		// Use port from config file if available
 		globalSettings := credStore.GetGlobalSettings()
 		if globalSettings.Port != "" {
 			cfg.Port = globalSettings.Port
 		}
+		
+		logger.Printf("Multi-user authentication enabled for %d users", len(credStore.ListUsers()))
 		
 	} else {
 		// Legacy single-user mode

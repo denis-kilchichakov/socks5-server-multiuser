@@ -182,16 +182,16 @@ func CreateDefaultConfig(configFile string) error {
 			{
 				Username:            "user1",
 				PasswordHash:        string(user1Hash),
-				AllowedIPs:          []string{"192.168.1.0/24", "10.0.0.1"},
-				AllowedDestinations: ".*\\.(example\\.com|safe-site\\.org)$",
+				AllowedIPs:          []string{},
+				AllowedDestinations: "",
 				Enabled:             true,
 				CreatedAt:           time.Now(),
 			},
 			{
-				Username:            "restricted",
+				Username:            "user2",
 				PasswordHash:        string(restrictedHash),
-				AllowedIPs:          []string{"192.168.1.100"},
-				AllowedDestinations: ".*\\.example\\.com$",
+				AllowedIPs:          []string{},
+				AllowedDestinations: "",
 				Enabled:             true,
 				CreatedAt:           time.Now(),
 			},
@@ -219,9 +219,9 @@ func CreateDefaultConfig(configFile string) error {
 	
 	fmt.Printf("Default configuration created at %s\n", configFile)
 	fmt.Println("Sample users created:")
-	fmt.Println("  admin (password: admin123) - full access")
-	fmt.Println("  user1 (password: user123) - IP and destination restrictions")
-	fmt.Println("  restricted (password: restricted123) - strict restrictions")
+	fmt.Println("  admin (password: admin123)")
+	fmt.Println("  user1 (password: user123)")
+	fmt.Println("  user2 (password: restricted123)")
 	fmt.Println()
 	fmt.Println("Please change these default passwords before production use!")
 	
